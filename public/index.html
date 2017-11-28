@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Endarken</title>
+    <style type="text/css">
+      body {
+        font-family: monospace;
+        font-size: 16px;
+      }
+      input[type="text"] { 
+        padding: 14px;
+        font-size: 16px;
+        font-family: monospace;
+        border-color: #fff;
+        border-style: solid;
+        border-radius: 0 10px 10px 0;
+        border-size: 2px;
+        left: -10px;
+        top: -1px;
+        width: 100px;
+        position: relative;
+      }
+      #lights-list {
+        list-style-type: none;
+        padding: 0px;
+      }
+
+      #lights-list li {
+        border-width: 0 0 0 10px;
+        border-style: solid;
+        padding: 20px;
+        font-family: monospace;
+        font-size: 16px;
+      }
+
+      #lights-list li a.toggle {
+        background-color: #ddd;
+        cursor: pointer;
+        padding: 10px;
+        font-size: 22px;
+        font-family: serif;
+        border-radius: 10px 0 0 10px;
+        border-size: 3px;
+        border-style: solid;
+        border-color: rgba(255,255,255,0);
+      }
+      #lights-list li.power-on a.toggle {
+        font-weight: bolder;
+        color: orangered;
+        border-color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <h1></h1>
+    <main class="container">
+      <ul id="lights-list"></ul>
+    </main>
+
+    <script src="//unpkg.com/feathers-client/dist/feathers.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
