@@ -5,7 +5,7 @@
 // See http://knexjs.org/
 // for more of what you can do here.
 const GithubWatcher = require('./plugs.github');
-STATE_COLORS = {
+const STATE_COLORS = {
   success: 'Green',
   pending: 'Yellow',
   failure: 'Red'
@@ -25,10 +25,18 @@ module.exports = function (app) {
     }
   });
 
+  // TODO: this is a hack until we get configuration into the plugs table
   let githubWatcher = new GithubWatcher('callrail', 'callrail');
+  // github watcher sends us success/pending/failure status changes
   githubWatcher.watch((newState) => {
-    app.service('lights').patch(1, {color: STATE_COLORS[newState]})
-      .catch(err => console.error("Error:", err.message || err))
+    let colorChange = {color: STATE_COLORS[newState]};
+    let lightService = app.service('lights');
+
+    // update light IDs to be the new color
+    Promise.all(
+      lightService.patch(1, colorChange),
+      lightService.patch(4, colorChange)
+    ).catch(err => console.error("Error:", err.message || err))
   });
 
   return db;
